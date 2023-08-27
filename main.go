@@ -7,11 +7,7 @@ import (
 )
 
 func main() {
-	spiderVerseLocation, err := filehandling.GetSpiderVerseLocation()
+	spiderVersePath := filehandling.GetSpiderVersePath()
 
-	if err != nil {
-		spiderVerseLocation = filehandling.CreateFile()
-	}
-
-	fmt.Println("Spider verse location", spiderVerseLocation)
+	fmt.Println("Spider verse path:", spiderVersePath)
 }
