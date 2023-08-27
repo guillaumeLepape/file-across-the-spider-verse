@@ -6,9 +6,9 @@ import (
 )
 
 type Host struct {
-	ID   uint     `gorm:"primaryKey;autoIncrementIncrement:true"`
-	Name string   `gorm:"uniqueIndex"`
-	IP   CustomIP `gorm:"unique"`
+	ID   uint   `gorm:"primaryKey;autoIncrementIncrement:true"`
+	Name string `gorm:"uniqueIndex"`
+	IP   string `gorm:"unique"`
 }
 
 func Connect(file string) *gorm.DB {
