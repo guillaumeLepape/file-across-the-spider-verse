@@ -67,7 +67,7 @@ func CreateSpiderFile() string {
 
 	err := os.WriteFile(
 		CreateSpiderFilePath(),
-		[]byte(fmt.Sprint(spiderFilePath, "\n")),
+		[]byte(fmt.Sprintln(spiderFilePath)),
 		0666,
 	)
 
