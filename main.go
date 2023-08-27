@@ -1,9 +1,9 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
-	"math/rand"
 	"os"
 	"path/filepath"
 
@@ -23,26 +23,37 @@ func main() {
 		panic(err)
 	}
 
-	db.Create(
-		&database.Host{
-			Name: fmt.Sprint("Machine", rand.Intn(1000)),
-			IP:   fmt.Sprint("192.0.", rand.Intn(10), ".", rand.Intn(10)),
-		},
-	)
-
 	app := &cli.App{
 		Name: "main",
 		Commands: []*cli.Command{
 			{
 				Name:    "host",
 				Aliases: []string{"h"},
-				Usage:   "add a task to the list",
+				Usage:   "add, display or delete host",
 				Subcommands: []*(cli.Command){
 					{
 						Name:  "list",
 						Usage: "list all hosts",
 						Action: func(cCtx *cli.Context) error {
-							database.GetHosts(db)
+							hosts := database.GetHosts(db)
+
+							for _, host := range hosts {
+								fmt.Println("Machine:", host.Name, "| Ip:", host.IP)
+							}
+
+							return nil
+						},
+					},
+					{
+						Name:  "add",
+						Usage: "add a new host",
+						Action: func(cCtx *cli.Context) error {
+							if cCtx.NArg() != 2 {
+								return errors.New(fmt.Sprint("Expecting 2 arguments name and host, found", cCtx.Args()))
+							}
+
+							database.AddHost(db, cCtx.Args().Get(0), cCtx.Args().Get(1))
+
 							return nil
 						},
 					},

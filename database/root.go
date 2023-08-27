@@ -1,8 +1,6 @@
 package database
 
 import (
-	"fmt"
-
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -22,10 +20,14 @@ func Connect(file string) *gorm.DB {
 	return db
 }
 
-func GetHosts(db *gorm.DB) {
+func GetHosts(db *gorm.DB) []Host {
 	var hosts []Host
 
 	db.Find(&hosts)
 
-	fmt.Println(hosts)
+	return hosts
+}
+
+func AddHost(db *gorm.DB, name string, ip string) {
+	db.Create(&Host{Name: name, IP: ip})
 }
