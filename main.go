@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func get_file_content(dirname string, fileLocation string) string {
+func CreateFileContent(dirname string, fileLocation string) string {
 	return fmt.Sprint(filepath.Join(dirname, fileLocation), "\n")
 }
 
@@ -27,7 +27,7 @@ func main() {
 		fmt.Print("Input a string: ")
 		fmt.Scanln(&fileLocation)
 
-		err := os.WriteFile(filename, []byte(get_file_content(homedir, fileLocation)), 0666)
+		err := os.WriteFile(filename, []byte(CreateFileContent(homedir, fileLocation)), 0666)
 
 		if err != nil {
 			log.Fatal(err)
@@ -43,8 +43,8 @@ func main() {
 
 			fmt.Println("Spider verse location", spiderVerseLocation)
 
-			mkdir_err := os.MkdirAll(spiderVerseLocation, os.ModePerm)
-			if mkdir_err != nil {
+			mkdirErr := os.MkdirAll(spiderVerseLocation, os.ModePerm)
+			if mkdirErr != nil {
 				log.Fatal("Not able to create the folder")
 			}
 		} else {
