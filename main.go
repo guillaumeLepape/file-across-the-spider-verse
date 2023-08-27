@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"net"
 	"path/filepath"
 
 	"github.com/guillaumeLepape/files-across-the-spider-verse/database"
@@ -25,7 +24,7 @@ func main() {
 	db.Create(
 		&database.Host{
 			Name: fmt.Sprint("Machine", rand.Intn(1000)),
-			IP:   database.CustomIP(net.IPv4(10, 255, 0, byte(rand.Intn(100)))),
+			IP:   "192.0.0.1",
 		},
 	)
 }
