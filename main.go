@@ -28,13 +28,13 @@ func main() {
 		Commands: []*cli.Command{
 			{
 				Name:    "host",
-				Aliases: []string{"h"},
+				Aliases: []string{"ho"},
 				Usage:   "add, display or delete host",
 				Subcommands: []*(cli.Command){
 					{
 						Name:  "list",
 						Usage: "list all hosts",
-						Action: func(cCtx *cli.Context) error {
+						Action: func(_ *cli.Context) error {
 							hosts := database.GetHosts(db)
 
 							for _, host := range hosts {
@@ -49,10 +49,30 @@ func main() {
 						Usage: "add a new host",
 						Action: func(cCtx *cli.Context) error {
 							if cCtx.NArg() != 2 {
-								return errors.New(fmt.Sprint("Expecting 2 arguments name and host, found", cCtx.Args()))
+								return errors.New(fmt.Sprintln("Expecting 2 arguments name and host, found", cCtx.Args()))
 							}
 
 							database.AddHost(db, cCtx.Args().Get(0), cCtx.Args().Get(1))
+
+							return nil
+						},
+					},
+					{
+						Name:  "delete",
+						Usage: "delete an existing host",
+						Action: func(cCtx *cli.Context) error {
+							if cCtx.NArg() != 1 {
+								return errors.New(fmt.Sprintln("Expecting 1 argument name, found", cCtx.Args()))
+							}
+
+							name := cCtx.Args().First()
+							hosts := database.DeleteHost(db, name)
+
+							if len(hosts) == 1 {
+								fmt.Println("Machine", name, "properly deleted")
+							} else {
+								return errors.New(fmt.Sprintln("No machine found with name", name))
+							}
 
 							return nil
 						},
