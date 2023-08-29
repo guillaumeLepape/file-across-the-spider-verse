@@ -3,6 +3,7 @@ package database
 import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type Host struct {
@@ -30,4 +31,13 @@ func GetHosts(db *gorm.DB) []Host {
 
 func AddHost(db *gorm.DB, name string, ip string) {
 	db.Create(&Host{Name: name, IP: ip})
+}
+
+func DeleteHost(db *gorm.DB, name string) []Host {
+
+	var hosts []Host
+
+	db.Clauses(clause.Returning{}).Where("name = ?", name).Delete(&hosts)
+
+	return hosts
 }
