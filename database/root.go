@@ -34,7 +34,6 @@ func AddHost(db *gorm.DB, name string, ip string) {
 }
 
 func DeleteHost(db *gorm.DB, name string) []Host {
-
 	var hosts []Host
 
 	db.Clauses(clause.Returning{}).Where("name = ?", name).Delete(&hosts)
