@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
@@ -21,6 +22,16 @@ func main() {
 
 	if err := db.AutoMigrate(&database.Host{}); err != nil {
 		panic(err)
+	}
+
+	fileMetadata := filehandling.ScanFolder(spiderVersePath)
+
+	fileMetadataJSON, _ := json.Marshal(fileMetadata)
+
+	writeErr := os.WriteFile("test.json", fileMetadataJSON, 0666)
+
+	if writeErr != nil {
+		log.Fatal(writeErr)
 	}
 
 	app := &cli.App{
