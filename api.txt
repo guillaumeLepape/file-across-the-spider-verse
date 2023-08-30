@@ -1,0 +1,20 @@
+GET /api/files/metadata
+[
+    {
+        "id": 5
+        "path": "...",
+        "updatedAt": "2023-02-01 09:01:02"
+    }
+]
+
+Return an image of files contains in spider verse folder
+
+
+GET /api/files/5
+Return the file with id=5
+
+type FileMetadata struct {
+	ID             uint   `gorm:"primaryKey;autoIncrementIncrement:true"`
+	Path           string `gorm:"uniqueIndex"`
+	LastModifyDate time.Time
+}
