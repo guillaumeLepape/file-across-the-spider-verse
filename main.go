@@ -14,6 +14,7 @@ import (
 	"github.com/guillaumeLepape/files-across-the-spider-verse/constant"
 	"github.com/guillaumeLepape/files-across-the-spider-verse/database"
 	"github.com/guillaumeLepape/files-across-the-spider-verse/filehandling"
+	"github.com/guillaumeLepape/files-across-the-spider-verse/server"
 )
 
 func main() {
@@ -46,6 +47,14 @@ func main() {
 	app := &cli.App{
 		Name: "main",
 		Commands: []*cli.Command{
+			{
+				Name: "server",
+				Action: func(_ *cli.Context) error {
+					server.StartServer(spiderVersePath)
+
+					return nil
+				},
+			},
 			{
 				Name:    "host",
 				Aliases: []string{"ho"},
