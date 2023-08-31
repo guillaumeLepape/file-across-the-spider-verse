@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/guillaumeLepape/files-across-the-spider-verse/database"
 	"github.com/guillaumeLepape/files-across-the-spider-verse/filehandling"
@@ -24,7 +25,14 @@ func main() {
 		panic(err)
 	}
 
-	fileMetadata := filehandling.ScanFolder(spiderVersePath)
+	fileMetadata, err := filehandling.FindFilesAfter(
+		spiderVersePath,
+		time.Date(2023, time.July, 8, 0, 25, 0, 0, time.Local),
+	)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	fileMetadataJSON, _ := json.Marshal(fileMetadata)
 
