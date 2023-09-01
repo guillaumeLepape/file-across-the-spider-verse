@@ -1,4 +1,6 @@
 package constant
 
-const SpiderFile = ".spider_file"
-const SpiderVerseMetadata = ".spider_metadata.db"
+const (
+	SpiderFile          = ".spider_file"
+	SpiderVerseMetadata = ".spider_metadata.db"
+)

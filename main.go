@@ -31,14 +31,13 @@ func main() {
 		spiderVersePath,
 		time.Date(2023, time.July, 8, 0, 25, 0, 0, time.Local),
 	)
-
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	fileMetadataJSON, _ := json.Marshal(fileMetadata)
 
-	writeErr := os.WriteFile("test.json", fileMetadataJSON, 0666)
+	writeErr := os.WriteFile("test.json", fileMetadataJSON, 0o666)
 
 	if writeErr != nil {
 		log.Fatal(writeErr)

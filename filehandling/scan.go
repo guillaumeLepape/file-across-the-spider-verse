@@ -52,7 +52,6 @@ func ScanFolder(dirName string) []FileMetadata {
 
 		return nil
 	})
-
 	if err != nil {
 		log.Fatal("error walking the path")
 	}
