@@ -12,6 +12,15 @@ type Host struct {
 	IP   string `gorm:"unique"`
 }
 
+type FileChange struct {
+	ID      uint `gorm:"primaryKey;autoIncrement:true"`
+	Path    string
+	Content string
+	Op      string
+	HostID  uint
+	Host    Host `gorm:"foreignKey:HostID"`
+}
+
 func Connect(file string) *gorm.DB {
 	db, err := gorm.Open(sqlite.Open(file), &gorm.Config{})
 	if err != nil {

@@ -23,7 +23,7 @@ func main() {
 
 	db := database.Connect(filepath.Join(spiderVersePath, constant.SpiderVerseMetadata))
 
-	if err := db.AutoMigrate(&database.Host{}); err != nil {
+	if err := db.AutoMigrate(&database.Host{}, &database.FileChange{}); err != nil {
 		panic(err)
 	}
 
@@ -97,6 +97,13 @@ func main() {
 							return nil
 						},
 					},
+				},
+			},
+			{
+				Name: "watcher",
+				Action: func(_ *cli.Context) error {
+					filehandling.StartFileWatcher(spiderVersePath, db)
+					return nil
 				},
 			},
 		},
