@@ -9,9 +9,11 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/urfave/cli/v2"
+
+	"github.com/guillaumeLepape/files-across-the-spider-verse/constant"
 	"github.com/guillaumeLepape/files-across-the-spider-verse/database"
 	"github.com/guillaumeLepape/files-across-the-spider-verse/filehandling"
-	"github.com/urfave/cli/v2"
 )
 
 func main() {
@@ -19,7 +21,7 @@ func main() {
 
 	fmt.Println("Spider verse path:", spiderVersePath)
 
-	db := database.Connect(filepath.Join(spiderVersePath, ".spider_metadata.db"))
+	db := database.Connect(filepath.Join(spiderVersePath, constant.SpiderVerseMetadata))
 
 	if err := db.AutoMigrate(&database.Host{}); err != nil {
 		panic(err)

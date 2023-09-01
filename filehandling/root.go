@@ -7,6 +7,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/guillaumeLepape/files-across-the-spider-verse/constant"
 )
 
 func GetHomeDir() string {
@@ -20,7 +22,7 @@ func GetHomeDir() string {
 }
 
 func CreateSpiderFilePath() string {
-	return fmt.Sprint(filepath.Join(GetHomeDir(), ".spider_file"))
+	return fmt.Sprint(filepath.Join(GetHomeDir(), constant.SpiderFile))
 }
 
 func CreateSpiderVerseDir(spiderFilePath string) {
