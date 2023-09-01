@@ -3,7 +3,6 @@ package filehandling
 import (
 	"fmt"
 	"log"
-
 	"os"
 	"path/filepath"
 	"strings"
@@ -13,7 +12,6 @@ import (
 
 func GetHomeDir() string {
 	homedir, err := os.UserHomeDir()
-
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -36,7 +34,6 @@ func GetSpiderVersePath() string {
 	filename := CreateSpiderFilePath()
 
 	fi, err := os.Lstat(filename)
-
 	if err != nil {
 		return CreateSpiderFile()
 	}
@@ -71,9 +68,8 @@ func CreateSpiderFile() string {
 	err := os.WriteFile(
 		CreateSpiderFilePath(),
 		[]byte(fmt.Sprintln(spiderFilePath)),
-		0666,
+		0o666,
 	)
-
 	if err != nil {
 		log.Fatal(err)
 	}

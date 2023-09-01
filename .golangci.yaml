@@ -1,4 +1,10 @@
+issues:
+  fix: true
+
 linters:
   enable:
+    - gofmt
+    - gofumpt
+    - goimports
     - revive
     - staticcheck
